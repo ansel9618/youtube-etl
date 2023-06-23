@@ -2,20 +2,14 @@
 
 ## **Motivation** 
 
----
-
 The aim of this project is to get familiar with data engineering tools such as Python, Docker & Airflow to produce an ETL data pipeline. To make the pipeline more robust, best practices of; unit & data quality testing and CI/CD are also implemented.
 
 ## **Dataset** 
-
----
 
 As a data source, the Youtube API is used. This API is used instead of, for example, Spotify or Twitter API as these two in particular have been used repeatedly for similar projects. 
 The data of this project is pulled from the channel 'Mike Thurston' which is a popular fitness Youtube channel.
 
 ## **Summary**
-
----
 
 This ETL project uses Airflow as an orchestration tool, packaged inside docker containers. The steps that make up the project is as follows:
 
@@ -38,15 +32,11 @@ The following six variables are extracted from the API:
 
 ## **Architecture** 
 
----
-
 <p align="center">
   <img width="500" height="400" src="images/project_architecture.png">
 </p>
 
 ## **Tools & Technologies**
-
----
 
 * *Containerization* - **Docker**, **Docker Compose**
 * *Orchestration* - **Airflow**
@@ -56,8 +46,6 @@ The following six variables are extracted from the API:
 * *CI/CD* - **Github Actions**
 
 ## **Containerization**
-
----
 
 To deploy Airflow on Docker, the official [docker-compose.yaml](https://airflow.apache.org/docs/apache-airflow/2.6.2/docker-compose.yaml) file is used with some changes.
 
@@ -83,8 +71,6 @@ while the Variables are specified as such: `AIRFLOW_VAR_{VARIABLE_NAME}`
 
 ## **Orchestration**
 
----
-
 The DAG can be visualized using the Airflow UI through http://localhost:8080. The DAG can be broken down as follows
 
 * Youtube data pull
@@ -108,8 +94,6 @@ The DAG can be visualized using the Airflow UI through http://localhost:8080. Th
 One could argue that the DAG design need not have the branching components since the staging/core schema creation is a one time event and successive pulls will always branch along the updating route. This is true however this design was chosen to get accustomed with using the `@task.branch` (BranchPythonOperator) in Airflow and also to use trigger rules such as `none_failed_min_one_success`
 
 ## **Testing**
-
----
 
 Both unit and data quality testing are implemented in this project. Note that data quality tests are performed per each column 
 
@@ -169,13 +153,9 @@ Both unit and data quality testing are implemented in this project. Note that da
 
 ## **CI/CD**
 
----
-
 WIP
 
 ## **Data Storage**
-
----
 
 To access the postgres container that contains the final data, the below docker command is used
 
