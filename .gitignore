@@ -1,8 +1,8 @@
 __pycache__ 
 venv/
 .env
-images/
 logs/
 plugins/
 include/
 .vscode/
+images/project_architecture.drawio.svg

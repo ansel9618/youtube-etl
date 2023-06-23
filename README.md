@@ -41,7 +41,7 @@ The following six variables are extracted from the API:
 ---
 
 <p align="center">
-  <img width="1500" height="400" src="images/project_architecture.drawio.svg">
+  <img width="1500" height="400" src="images/project_architecture.png">
 </p>
 
 ## **Tools & Technologies**
