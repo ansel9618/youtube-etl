@@ -96,13 +96,13 @@ The DAG can be visualized using the Airflow UI through http://localhost:8080. Th
 ### **Staging/ Core schema creation**
 
 <p align="center">
-  <img width="1400" height="300" src="images/orchestration/schema_creation.png">
+  <img width="1100" height="225" src="images/orchestration/schema_creation.png">
 </p>
 
 ### **Staging/ Core schema updating**
 
 <p align="center">
-  <img width="1400" height="300" src="images/orchestration/schema_updating.png">
+  <img width="1200" height="200" src="images/orchestration/schema_updating.png">
 </p>
 
 One could argue that the DAG design need not have the branching components since the staging/core schema creation is a one time event and successive pulls will always branch along the updating route. This is true however this design was chosen to get accustomed with using the `@task.branch` (BranchPythonOperator) in Airflow and also to use trigger rules such as `none_failed_min_one_success`
