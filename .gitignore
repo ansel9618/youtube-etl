@@ -4,5 +4,4 @@ venv/
 logs/
 plugins/
 include/
-.vscode/
 images/project_architecture.drawio.svg
