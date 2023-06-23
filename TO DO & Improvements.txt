@@ -1,0 +1,9 @@
+TO DO:
+
+1. Go over and update Readme 
+- add airflow & database pics, different types of tests
+- look at google docs requirements for each project
+
+Improvements:
+
+1. Git repo & CI-CD
