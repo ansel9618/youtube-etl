@@ -9,6 +9,8 @@ The aim of this project is to get familiar with data engineering tools such as P
 As a data source, the Youtube API is used. This API is used instead of, for example, Spotify or Twitter API as these two in particular have been used repeatedly for similar projects. 
 The data of this project is pulled from the channel 'Mike Thurston' which is a popular fitness Youtube channel.
 
+It is good to note that this project can be replicated for any other Youtube channel as long as you have the Youtube Channel ID for the channel in question. 
+
 ## **Summary**
 
 This ETL project uses Airflow as an orchestration tool, packaged inside docker containers. The steps that make up the project is as follows:
