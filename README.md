@@ -20,9 +20,10 @@ This ETL project uses Airflow as an orchestration tool, packaged inside docker c
 * From there, a python script is used for minor data **transformations**. 
 * Once transformations are completed the data is **loaded** into the `core schema` (also a dockerized PostgreSQL database) 
 
-The first (initial) API pull loads the data and successive pulls update the values for certain variables (columns). 
-Once the core schema is populated and both unit and data quality tests have been implemented, the data is then ready for analysis.
-Querying of the data is performed by first accessing the postgres container and then using SQL logic.
+The first (initial) API pull loads the data - This is the Staging/ Core schemas **_creation_** DAG run scenario 
+Successive pulls update the values for certain variables (columns) - This is the Staging/ Core schemas **_updating_** DAG run scenario. 
+
+Once the core schema is populated and both unit and data quality tests have been implemented, the data is then ready for analysis. Querying of the data is performed by first accessing the postgres docker container and then using SQL logic.
 
 The following six variables are extracted from the API: 
 1. *Video ID*, 
@@ -49,7 +50,7 @@ The following six variables are extracted from the API:
 
 ## **Containerization**
 
-To deploy Airflow on Docker, the official [docker-compose.yaml](https://airflow.apache.org/docs/apache-airflow/2.6.2/docker-compose.yaml) file is used with some changes.
+To deploy Airflow on Docker, the official [docker-compose.yaml](https://airflow.apache.org/docs/apache-airflow/2.6.2/docker-compose.yaml) file is used with some changes;
 
 1. The image used is an extended image, built using a Dockerfile. The below command is used to build an extended image called `extending-image`
 
@@ -73,7 +74,7 @@ while the Variables are specified as such: `AIRFLOW_VAR_{VARIABLE_NAME}`
 
 ## **Orchestration**
 
-The DAG can be visualized using the Airflow UI through http://localhost:8080. The DAG can be broken down as follows
+The DAG can be visualized using the Airflow UI through http://localhost:8080. The DAG can be broken down as follows;
 
 * Youtube data pull
 * Branching into either Staging Schema Creation or Updating
@@ -81,19 +82,19 @@ The DAG can be visualized using the Airflow UI through http://localhost:8080. Th
 * Branching into either Core Schema Creation or Updating
 * Core schema data quality checks
 
-### **Staging/ Core schema creation**
+### **Staging/ Core schemas _creation_ DAG run scenario**
 
 <p align="center">
   <img width="2000" height="125" src="images/orchestration/schema_creation.png">
 </p>
 
-### **Staging/ Core schema updating**
+### **Staging/ Core schemas _updating_ DAG run scenario**
 
 <p align="center">
   <img width="2000" height="125" src="images/orchestration/schema_updating.png">
 </p>
 
-One could argue that the DAG design need not have the branching components since the staging/core schema creation is a one time event and successive pulls will always branch along the updating route. This is true however this design was chosen to get accustomed with using the `@task.branch` (BranchPythonOperator) in Airflow and also to use trigger rules such as `none_failed_min_one_success`
+One could argue that the DAG design need not have the branching components since the staging/core schemas creation is a one time event and successive pulls will always branch along the updating route. Although this is true, the design was chosen to get accustomed with using the `@task.branch` (BranchPythonOperator) in Airflow and also to use trigger rules such as `none_failed_min_one_success`
 
 ## **Testing**
 
@@ -108,7 +109,7 @@ Both unit and data quality testing are implemented in this project. Note that da
 * DAG tasks are ordered correctly
 * DAG triggering on the correct rules
 * Airflow Variables & Connections exist
-* `TOKENS` list has the correct properties to loop through the YT API data
+* _TOKENS_ list (in python script) has the correct properties to loop through the YT API data
 * Data pull exports a json file for each date 
 * API URL gives status 200 code
 
