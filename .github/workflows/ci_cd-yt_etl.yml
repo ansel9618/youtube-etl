@@ -23,6 +23,7 @@ jobs:
       JOINED_DATE: ${{secrets.JOINED_DATE}}
       DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
       DOCKERHUB_REPOSITORY: ${{secrets.DOCKERHUB_REPOSITORY}}
+      AIRFLOW_UID: ${{secrets.AIRFLOW_UID}}
     steps:
     # Pull git repo so you have all the files available
       - name: Pulling git repo
@@ -47,5 +48,5 @@ jobs:
         uses: isbang/compose-action@v1.4.1
       - name: test with pytest inside scheduler docker container
         run: |
-          docker exec -it youtube_api-airflow-scheduler-1 bash
+          docker exec -it youtube-etl_airflow-scheduler_1 bash
           pytest dags/tests/ -v
