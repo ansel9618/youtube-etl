@@ -47,25 +47,3 @@ jobs:
         run: |
           docker exec -it youtube_api-airflow-scheduler-1 bash
           pytest dags/tests/ -v
-
-  # deploy_job:
-  #   runs-on: ubuntu-latest
-  #   # Below is needed since jobs run in parallel but you need to build first before deployment
-  #   needs:
-  #     - build_job
-  #   environment:
-  #     name: deploy
-
-  #   steps:
-  #     - name: deploy to ubuntu server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{secrets.PROD_HOST}}
-  #         username: ${{secrets.PROD_USERNAME}}
-  #         password: ${{secrets.PROD_PASSWORD}}
-  #         script: |
-  #           cd app/src
-  #           git config --global user.name ${{secrets.PROD_USER_NAME}}
-  #           git config --global user.email ${{secrets.PROD_USER_EMAIL}} 
-  #           git pull
-  #           echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart social_media_app.service
