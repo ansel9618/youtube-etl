@@ -10,17 +10,17 @@ jobs:
     # Using environment named 'build' (defined in Github actions environment)
     environment:
       name: build
-    # # Enivornment variables pertaining to environment 'build' (defined in Github actions environment secrets)
-    # env:
-    #   DATABASE_NAME: ${{secrets.DATABASE_NAME}}
-    #   DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
-    #   DATABASE_PORT: ${{secrets.DATABASE_PORT}}
-    #   DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
-    #   DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
-    #   FERNET_KEY: ${{secrets.FERNET_KEY}}
-    #   API_KEY: ${{secrets.API_KEY}}
-    #   CHANNEL_ID: ${{secrets.CHANNEL_ID}}
-    #   JOINED_DATE: ${{secrets.JOINED_DATE}}
+    # Enivornment variables pertaining to environment 'build' (defined in Github actions environment secrets)
+    env:
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      FERNET_KEY: ${{secrets.FERNET_KEY}}
+      API_KEY: ${{secrets.API_KEY}}
+      CHANNEL_ID: ${{secrets.CHANNEL_ID}}
+      JOINED_DATE: ${{secrets.JOINED_DATE}}
     steps:
     # Pull git repo so you have all the files available
       - name: Pulling git repo
