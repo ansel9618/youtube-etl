@@ -53,7 +53,7 @@ x-airflow-common:
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${.DATABASE_USERNAME}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ${{secrets.FERNET_KEY}}
