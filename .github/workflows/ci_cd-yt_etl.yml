@@ -18,6 +18,9 @@ jobs:
       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
       FERNET_KEY: ${{secrets.FERNET_KEY}}
+      API_KEY: ${{secrets.API_KEY}}
+      CHANNEL_ID: ${{secrets.CHANNEL_ID}}
+      JOINED_DATE: ${{secrets.JOINED_DATE}}
     steps:
     # Pull git repo so you have all the files available
       - name: Pulling git repo
