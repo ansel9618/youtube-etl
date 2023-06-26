@@ -48,7 +48,7 @@ version: '3.8' # This is the version of the docker-compose
 x-airflow-common:
   # In order to add custom dependencies or upgrade provider packages you can use your extended image.
   &airflow-common
-  image: ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_REPOSITORY}}
+  image: ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPOSITORY}
   # build: .
   environment:
     &airflow-common-env
