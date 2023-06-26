@@ -53,8 +53,8 @@ x-airflow-common:
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${DATABASE_USERNAME}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${DATABASE_USERNAME}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}/${{secrets.DATABASE_NAME}}
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ${{secrets.FERNET_KEY}}
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
@@ -75,7 +75,7 @@ x-airflow-common:
     # NOTE 2: Single underscores are used for Airflow to read connections/ variables
     # Connection can be written as URI: 
     # AIRFLOW_CONN_{CONN_ID}='my-conn-type://login:password@host:port/schema?param1=val1&param2=val2'
-    AIRFLOW_CONN_POSTGRES_DB_YT_ETL: 'postgres://${DATABASE_USERNAME}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}:${DATABASE_PORT}'
+    AIRFLOW_CONN_POSTGRES_DB_YT_ETL: 'postgres://${{secrets.DATABASE_USERNAME}}:${{secrets.DATABASE_PASSWORD}}@${{secrets.DATABASE_HOSTNAME}}:${DATABASE_PORT}'
     # Variables can be written as follows: 
     # AIRFLOW_VAR_{KEY} where KEY is the variable name
     AIRFLOW_VAR_API_KEY: ${{secrets.API_KEY}}
@@ -98,7 +98,7 @@ services:
   postgres:
     image: postgres
     environment:
-      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_USER=${{secrets.DATABASE_USERNAME}}
       - POSTGRES_PASSWORD=${{secrets.DATABASE_PASSWORD}}
       - POSTGRES_DB=${{secrets.DATABASE_NAME}}
     ports:
@@ -106,7 +106,13 @@ services:
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${DATABASE_USERNAME}" ]
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-U",
+          "${{secrets.DATABASE_USERNAME}}"
+        ]
       interval: 10s
       retries: 5
       start_period: 5s
