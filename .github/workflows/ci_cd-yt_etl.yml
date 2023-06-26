@@ -48,5 +48,5 @@ jobs:
         uses: isbang/compose-action@v1.4.1
       - name: test with pytest inside scheduler docker container
         run: |
-          docker exec -i youtube-etl_airflow-scheduler_1 bash
+          docker exec youtube-etl_airflow-scheduler_1 bash
           pytest dags/tests/ -v
