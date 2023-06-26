@@ -1,0 +1,68 @@
+name: CI/CD for YT ETL
+
+on: [push, pull_request]
+
+jobs:
+
+  build_job:
+    name: build image
+    runs-on: ubuntu-latest
+    # Using environment named 'build' (defined in Github actions environment)
+    environment:
+      name: build
+    # Enivornment variables pertaining to environment 'build' (defined in Github actions environment secrets)
+    env:
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      FERNET_KEY: ${{secrets.FERNET_KEY}}
+    steps:
+    # Pull git repo so you have all the files available
+      - name: Pulling git repo
+        uses: actions/checkout@v3
+    # Sign in to Docker Hub, build and push docker image it to Dockerhub using a Dockerfile
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_REPOSITORY}}:latest
+      # Run docker compose yaml file and start airflow
+      - name: Run docker compose
+        uses: isbang/compose-action@v1.4.1
+      - name: test with pytest inside scheduler docker container
+        run: |
+          docker exec -it youtube_api-airflow-scheduler-1 bash
+          pytest dags/tests/ -v
+
+  # deploy_job:
+  #   runs-on: ubuntu-latest
+  #   # Below is needed since jobs run in parallel but you need to build first before deployment
+  #   needs:
+  #     - build_job
+  #   environment:
+  #     name: deploy
+
+  #   steps:
+  #     - name: deploy to ubuntu server
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{secrets.PROD_HOST}}
+  #         username: ${{secrets.PROD_USERNAME}}
+  #         password: ${{secrets.PROD_PASSWORD}}
+  #         script: |
+  #           cd app/src
+  #           git config --global user.name ${{secrets.PROD_USER_NAME}}
+  #           git config --global user.email ${{secrets.PROD_USER_EMAIL}} 
+  #           git pull
+  #           echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart social_media_app.service

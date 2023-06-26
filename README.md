@@ -55,7 +55,7 @@ To deploy Airflow on Docker, the official [docker-compose.yaml](https://airflow.
 1. The image used is an extended image, built using a Dockerfile. The below command is used to build an extended image called `extending-image`
 
 ```
-docker build . -f Dockerfile --pull --tag extending-image:0.0.1
+docker build . -f Dockerfile --pull --tag extending-image
 ```
 
 Once the image is created the docker compose yaml file can be executed to run the multiple containers with the below command
