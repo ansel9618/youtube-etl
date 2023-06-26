@@ -50,6 +50,6 @@ jobs:
       # Run pytest for unit tests
       - name: Test DAG is working and run unit tests (inside scheduler docker container)
         run: |
-          winpty docker exec -it youtube-etl_airflow-scheduler_1 bash
+          docker exec -t youtube-etl_airflow-scheduler_1 bash
           airflow dags test yt_etl
           pytest dags/tests/ -v
