@@ -25,7 +25,7 @@ jobs:
       DOCKERHUB_REPOSITORY: ${{secrets.DOCKERHUB_REPOSITORY}}
       AIRFLOW_UID: ${{secrets.AIRFLOW_UID}}
     container: 
-      image: ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_REPOSITORY}}
+      image: mattschembri/yt_etl
     steps:
     # Pull git repo so you have all the files available
       - name: Pulling git repo
