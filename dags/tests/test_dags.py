@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 # 1. No import errors,
 # 2. dag exists,
 # 3. Number of tasks in the dag
-def test_dag_loaded(dagbag):
+def test_dag_no_import_errors(dagbag):
     assert len(dagbag.import_errors) == 0
 
     
