@@ -1,5 +1,11 @@
 # **Youtube API - ETL**
 
+## **Architecture** 
+
+<p align="center">
+  <img width="500" height="400" src="images/project_architecture.png">
+</p>
+
 ## **Motivation** 
 
 The aim of this project is to get familiar with data engineering tools such as Python, Docker & Airflow to produce an ETL data pipeline. To make the pipeline more robust, best practices of; unit & data quality testing and continuous integration (CI) are also implemented.
@@ -33,12 +39,6 @@ The following six variables are extracted from the API:
 * *Video Views*,
 * *Likes Count*, 
 * *Comments Count*
-
-## **Architecture** 
-
-<p align="center">
-  <img width="500" height="400" src="images/project_architecture.png">
-</p>
 
 ## **Tools & Technologies**
 
