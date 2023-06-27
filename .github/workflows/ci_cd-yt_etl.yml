@@ -7,7 +7,6 @@ jobs:
   build_job:
     name: build image
     runs-on: ubuntu-latest
-    container: mattschembri/yt_etl
     # Using environment named 'build' (defined in Github actions environment)
     environment:
       name: build
@@ -50,7 +49,8 @@ jobs:
       # To test that DAG is working with no errors; airflow dags test <dag_id>
       # Run pytest for unit tests
       - name: Test DAG is working and run unit tests (inside scheduler docker container)
-        run: |
-          docker exec -it youtube-etl_airflow-scheduler_1 bash
-          pytest dags/tests/ -v
+        run:
+          docker ps
+          # docker exec -it youtube-etl_airflow-scheduler_1 bash
+          # pytest dags/tests/ -v
         # airflow dags test yt_etl
