@@ -9,15 +9,15 @@ from datetime import datetime, timezone
 # 2. dag exists,
 # 3. Number of tasks in the dag
 def test_dag_loaded(dagbag):
-    assert dagbag.import_errors == {}
+    assert len(dagbag.import_errors) == 0
 
-
-def test_exists(dagbag):
+    
+def test_dag_exists(dagbag):
     dag = dagbag.get_dag(dag_id="yt_etl")
     assert dag is not None
 
 
-def test_task_count(dagbag):
+def test_sag_task_count(dagbag):
     dag = dagbag.get_dag(dag_id="yt_etl")
     assert len(dag.tasks) == 17
 

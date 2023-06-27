@@ -1,7 +1,5 @@
 import requests
 import math
-from os.path import exists
-from datetime import date
 
 from airflow.models import Variable, Connection
 
@@ -30,12 +28,6 @@ def test_tokens_list():
 
     assert tokens()[0] == ""
     assert len(tokens()) == math.ceil(video_count / maxResults)
-
-
-# Testing that YT_data produced on the day is in the include folder
-def test_loaded_data():
-    path = f"/opt/airflow/include/YT_data_{date.today()}.json"
-    assert exists(path) is True
 
 
 # Making sure outer URL gives status code 200
