@@ -24,6 +24,8 @@ jobs:
       DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
       DOCKERHUB_REPOSITORY: ${{secrets.DOCKERHUB_REPOSITORY}}
       AIRFLOW_UID: ${{secrets.AIRFLOW_UID}}
+    container: 
+      image: ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPOSITORY}
     steps:
     # Pull git repo so you have all the files available
       - name: Pulling git repo
@@ -50,6 +52,6 @@ jobs:
       # Run pytest for unit tests
       - name: Test DAG is working and run unit tests (inside scheduler docker container)
         run: |
-          docker exec youtube-etl_airflow-scheduler_1 sh
-          airflow dags test yt_etl
-        # pytest dags/tests/ -v
+          docker exec -it youtube-etl_airflow-scheduler_1 bash
+          pytest dags/tests/ -v
+        # airflow dags test yt_etl
