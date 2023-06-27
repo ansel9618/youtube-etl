@@ -7,6 +7,7 @@ jobs:
   build_job:
     name: build image
     runs-on: ubuntu-latest
+    container: mattschembri/yt_etl
     # Using environment named 'build' (defined in Github actions environment)
     environment:
       name: build
@@ -24,8 +25,6 @@ jobs:
       DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
       DOCKERHUB_REPOSITORY: ${{secrets.DOCKERHUB_REPOSITORY}}
       AIRFLOW_UID: ${{secrets.AIRFLOW_UID}}
-    container: 
-      image: mattschembri/yt_etl
     steps:
     # Pull git repo so you have all the files available
       - name: Pulling git repo
